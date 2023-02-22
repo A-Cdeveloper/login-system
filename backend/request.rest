@@ -6,7 +6,7 @@ POST http://192.168.0.149:8080/users/login
 Content-Type: application/json
 
 {
-    "username": "Aleksandar", 
+    "username": "Aleksandar1981", 
     "password": "password123"
 }
 
