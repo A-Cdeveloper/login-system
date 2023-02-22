@@ -1,0 +1,43 @@
+html {
+  font-size: 62.5%;
+}
+
+body {
+  margin: 0;
+}
+
+h1 {
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.nav-pills .nav-link {
+  font-size: 1.6rem;
+  color: black;
+  margin: 0 0px;
+  padding: 7px 30px !important;
+  &:hover,
+  &.active {
+    background: green !important;
+    color: white;
+  }
+}
+
+p.userarea {
+  font-size: 1.4rem;
+  margin-bottom: 0;
+  & a {
+    color: green;
+  }
+}
+
+main {
+  font-size: 1.6rem;
+  padding: 5% 0;
+}
+
+footer {
+  font-size: 1.3rem;
+  padding: 0.5rem !important;
+  color: white;
+}
