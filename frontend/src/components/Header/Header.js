@@ -24,28 +24,32 @@ const Header = () => {
         </Col>
         <Col className="" lg={7}>
           <Nav pills>
-            <NavItem>
-              <NavLink tag={RootLink} to={"/"}>
-                Home
-              </NavLink>
-            </NavItem>
             {authCtx.isLogedIn && (
-              <NavItem>
-                <NavLink tag={RootLink} to={"second-page"}>
-                  Second page
-                </NavLink>
-              </NavItem>
+              <>
+                <NavItem>
+                  <NavLink tag={RootLink} to={"dashboard"}>
+                    Dashboard
+                  </NavLink>
+                </NavItem>
+
+                <NavItem>
+                  <NavLink tag={RootLink} to={"projects"}>
+                    Projects
+                  </NavLink>
+                </NavItem>
+
+                <NavItem>
+                  <NavLink tag={RootLink} to={"clients"}>
+                    Clients
+                  </NavLink>
+                </NavItem>
+              </>
             )}
-            <NavItem>
-              <NavLink tag={RootLink} to={"third-page"}>
-                Third page
-              </NavLink>
-            </NavItem>
           </Nav>
         </Col>
         <Col className="flex-column justify-content-center" lg={3}>
           <p className="userarea text-end">
-            {!authCtx.isLogedIn && <Link to={"userarea/?mode=login"}>Login/Register</Link>}
+            {/* {!authCtx.isLogedIn && <Link to={"userarea/?mode=login"}>Login/Register</Link>} */}
             {authCtx.isLogedIn && (
               <>
                 Welcome{" "}

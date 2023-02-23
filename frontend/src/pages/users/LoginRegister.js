@@ -1,15 +1,16 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Container, Row, Col } from "reactstrap";
-import { Navigate, useSearchParams } from "react-router-dom";
+import { Navigate, useSearchParams, useNavigate } from "react-router-dom";
 
-import { AuthContext } from "../store/authContext";
-import LoginForm from "../components/Forms/LoginForm";
-import RegisterForm from "../components/Forms/RegisterForm";
-import { userLogin } from "../util/http";
+import { AuthContext } from "../../store/authContext";
+import LoginForm from "../../components/Forms/LoginForm";
+import RegisterForm from "../../components/Forms/RegisterForm";
+import { userLogin, userRegistration } from "../../util/http";
 
 const LoginRegister = () => {
   const [error, setError] = useState("");
   const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
   let mode = searchParams.get("mode") === "login" ? "login" : "register";
   const auhtCtx = useContext(AuthContext);
 
@@ -36,7 +37,18 @@ const LoginRegister = () => {
 
   //
   const registerHandler = async (values) => {
-    console.log(values);
+    try {
+      const res = await userRegistration(values);
+      const data = await res.json();
+      if (res.status === 400) {
+        setError(data.message);
+        return;
+      }
+      navigate("/conformation", { replace: true, state: { email: values.email } });
+      console.log(data);
+    } catch (error) {
+      setError(error);
+    }
   };
 
   let content = (
@@ -57,7 +69,7 @@ const LoginRegister = () => {
   );
 
   if (auhtCtx.isLogedIn) {
-    content = <Navigate to="/" replace={true} />;
+    content = <Navigate to="/dashboard" replace={true} />;
   }
 
   return <>{content}</>;

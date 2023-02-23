@@ -1,7 +1,7 @@
 import React from "react";
 import classes from "./Form.module.scss";
 import { Formik, Form } from "formik";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import * as Yup from "yup";
 
 import Card from "../ui/Card";
@@ -18,8 +18,6 @@ const validationSchema = Yup.object({
 });
 
 const RegisterForm = ({ title, errorMsg, onRegister }) => {
-  const navigate = useNavigate();
-
   return (
     <Card>
       <h2 className="text-center mb-4">{title}</h2>
@@ -36,7 +34,6 @@ const RegisterForm = ({ title, errorMsg, onRegister }) => {
         validationSchema={validationSchema}
         onSubmit={(values) => {
           onRegister(values);
-          navigate("/conformation", { replace: true, state: { email: values.email } });
         }}
       >
         {({ isValid }) => (

@@ -15,6 +15,29 @@ export const userLogin = async ({ username, password }) => {
   return response;
 };
 
+export const userRegistration = async ({ firstname, lastname, username, password, email }) => {
+  const response = await fetch(`${API_URL}/users/register`, {
+    method: "POST",
+    body: JSON.stringify({
+      firstname,
+      lastname,
+      username,
+      password,
+      email,
+    }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  return response;
+};
+
+export const userConformation = async (user_id, verToken) => {
+  const response = await fetch(`${API_URL}/users/user-verify/${user_id}/${verToken}`, {});
+  return response;
+};
+
 export const userManageCredential = async (refreshToken, marker) => {
   if (marker !== "logout") {
     marker = "refresh_token";

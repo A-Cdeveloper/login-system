@@ -6,10 +6,11 @@ import ErrorPage from "./pages/ErrorPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 import HomePage from "./pages/HomePage";
-import SecondPage from "./pages/SecondPage";
-import ThirdPage from "./pages/ThirdPage";
-import LoginRegister from "./pages/LoginRegister";
-import ConformationPage from "./pages/ConformationPage";
+import Projects from "./pages/Projects";
+import Clients from "./pages/Clients";
+import LoginRegister from "./pages/users/LoginRegister";
+import ConformationPage from "./pages/users/ConformationPage";
+import UserVerifyPage from "./pages/users/UserVerifyPage";
 
 const router = createBrowserRouter([
   {
@@ -17,19 +18,27 @@ const router = createBrowserRouter([
     element: <RootLayout />,
     errorElement: <ErrorPage />,
     children: [
-      { index: true, element: <HomePage /> },
-
+      { index: true, path: "userarea", element: <LoginRegister /> },
+      { path: "dashboard", element: <HomePage /> },
       {
-        path: "second-page",
+        path: "clients",
         element: (
           <ProtectedRoute redirectTo="/login">
-            <SecondPage />
+            <Clients />
           </ProtectedRoute>
         ),
       },
-      { path: "third-page", element: <ThirdPage /> },
-      { path: "userarea", element: <LoginRegister /> },
+      {
+        path: "projects",
+        element: (
+          <ProtectedRoute redirectTo="/login">
+            <Projects />
+          </ProtectedRoute>
+        ),
+      },
+
       { path: "conformation", element: <ConformationPage /> },
+      { path: "users/user-verify/:user_id/:verToken", element: <UserVerifyPage /> },
     ],
   },
 ]);

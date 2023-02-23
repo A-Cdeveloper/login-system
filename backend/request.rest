@@ -6,8 +6,8 @@ POST http://192.168.0.149:8080/users/login
 Content-Type: application/json
 
 {
-    "username": "Aleksandar1981", 
-    "password": "password123"
+    "username": "Norbert", 
+    "password": "password456"
 }
 
 ###
@@ -22,3 +22,20 @@ Content-Type: application/json
 {
     "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFsZWtzYW5kYXIiLCJpYXQiOjE2NzY4NjEwNDN9.CPviVLDKyQJAK9nXPV8BGoHvKxHdcy6_nK9CMk9z6rU"
 }
+
+### 
+
+POST  http://192.168.0.149:8080/users/register
+Content-Type: application/json
+
+{
+    "first_name": "Petar", 
+    "last_name": "Petkovic", 
+    "username": "pera", 
+    "password" : "password789",
+    "email" : "aleksandar@e-vlasotince.info"
+}
+
+### 
+GET  http://192.168.0.149:8080/users/user-verify/12/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InBlcmEiLCJpYXQiOjE2NzcxMDYwMTEsI88mV4cCI6MTY3NzEwOTYxMX0.B5sAL71IGKABaNncK9SCJcBgshtOkFA4Lk5zhAIGyts
+ 

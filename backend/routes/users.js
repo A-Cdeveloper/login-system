@@ -10,14 +10,10 @@ const sendMail = require("../utils/sendemail");
 
 // /users
 
-router.get("/", async (req, res) => {
-  await sendMail("aleksandar@rixner.net", "TEST from app", "This is simple test");
-  return res.status(231).json({ message: "Email sent" });
-});
-
-router.get("/:user_id", (req, res) => {
-  const { user_id } = req.params;
-  res.send(`user ${user_id} found`);
+router.get("/", async (req, res, next) => {
+  const error = new Error("Restricted.");
+  error.status = 404;
+  next(error);
 });
 
 router.post("/login", async (req, res) => {
@@ -30,6 +26,9 @@ router.post("/login", async (req, res) => {
 
   if (user == undefined) {
     return res.status(400).json({ message: "Username not exist." });
+  }
+  if (user.verified == 0) {
+    return res.status(400).json({ message: "Account is not verified." });
   }
 
   try {
@@ -76,6 +75,50 @@ router.post("/refresh_token", async (req, res) => {
     await dbfunctions.updateRefreshToken(newRefreshToken, existingUser.uid);
     res.json({ accessToken: accessToken, refreshToken: newRefreshToken, expiresIn: timeObject });
   });
+});
+
+router.post("/register", async (req, res) => {
+  const { firstname, lastname, username, password, email } = req.body;
+  const user = await dbfunctions.getSingleUser(username);
+
+  if (user) {
+    return res.status(400).json({ message: "Username already exist." });
+  }
+  const hashedPassword = await bcrypt.hash(password, 10);
+  const verifedToken = jwt.sign({ username: username }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "1h" });
+  const newUser = {
+    first_name: firstname,
+    last_name: lastname,
+    username,
+    password: hashedPassword,
+    email,
+    verifedToken,
+  };
+  await dbfunctions.createUser(newUser);
+  const lastUser = await dbfunctions.getSingleUser(username);
+
+  const message = `Welcome to PMS ${firstname} ${lastname}.
+  Please verify your account clicking on link below
+
+  ${process.env.BASE_URL}/users/user-verify/${lastUser.uid}/${lastUser.verifedToken}`;
+
+  await sendMail(email, "User conformation", message);
+  res.status(231).json({ message: `User registed.` });
+});
+
+//
+router.get("/user-verify/:user_id/:verToken", async (req, res) => {
+  const { user_id, verToken } = req.params;
+  const user = await dbfunctions.getSingleUser(null, user_id);
+
+  if (!user) {
+    return res.status(400).json({ message: "User not exist." });
+  }
+  if (user.verifedToken !== verToken) {
+    return res.status(400).json({ message: "Conformation link not valid." });
+  }
+  await dbfunctions.conformUser(user_id);
+  res.status(231).json({ message: `User conformed.` });
 });
 
 module.exports = router;

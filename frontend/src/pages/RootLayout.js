@@ -8,13 +8,18 @@ import AlertBox from "../components/ui/AlertBox";
 
 import { AuthContext } from "../store/authContext";
 
+let initial = true;
+
 const RootLayout = () => {
   const ctxAuth = useContext(AuthContext);
   const [showAlert, setShowAlert] = useState(false);
 
   useEffect(() => {
-    setShowAlert(true);
+    if (!initial) {
+      setShowAlert(true);
+    }
     let timer = setTimeout(() => setShowAlert(false), 3000);
+    initial = false;
     return () => {
       clearTimeout(timer);
     };
