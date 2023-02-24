@@ -29,7 +29,7 @@ const UserVerifyPage = () => {
   let content = (
     <div className="text-center">
       <h1>You account is now active.</h1>
-      <Link to="/userarea/?mode=login">Login to your account.</Link>
+      <Link to="/?mode=login">Login to your account.</Link>
     </div>
   );
   if (errorMsg) {

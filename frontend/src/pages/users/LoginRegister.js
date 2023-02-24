@@ -1,78 +1,56 @@
-import React, { useContext, useState, useEffect } from "react";
-import { Container, Row, Col } from "reactstrap";
-import { Navigate, useSearchParams, useNavigate } from "react-router-dom";
+import { Navigate, useSearchParams } from "react-router-dom";
 
-import { AuthContext } from "../../store/authContext";
 import LoginForm from "../../components/Forms/LoginForm";
 import RegisterForm from "../../components/Forms/RegisterForm";
+import Loader from "../../components/ui/Loader";
+
+import useLoginReg from "../../hooks/loginreg";
 import { userLogin, userRegistration } from "../../util/http";
 
 const LoginRegister = () => {
-  const [error, setError] = useState("");
+  const { sendRequest, isLoading, error, auhtCtx } = useLoginReg();
+  /* eslint-disable */
   const [searchParams, setSearchParams] = useSearchParams();
-  const navigate = useNavigate();
-  let mode = searchParams.get("mode") === "login" ? "login" : "register";
-  const auhtCtx = useContext(AuthContext);
+  let mode = "login";
+  if (searchParams.get("mode") && searchParams.get("mode") !== "login") {
+    mode = "register";
+  }
 
-  useEffect(() => {
-    setError("");
-  }, [searchParams]);
+  // useEffect(() => {
+  //   setError("");
+  // }, [searchParams]);
 
   //
-  const loginHandler = async (values) => {
-    try {
-      const res = await userLogin(values);
-      const data = await res.json();
-      if (res.status === 400) {
-        setError(data.message);
-        return;
-      }
-      //console.log(data);
-      const { first_name, last_name, email, accessToken, refreshToken, expiresIn } = data;
-      auhtCtx.login(first_name, last_name, email, accessToken, refreshToken, expiresIn);
-    } catch (error) {
-      setError(error);
-    }
+
+  const loginHandler = (values) => {
+    sendRequest(values, userLogin, mode);
   };
 
-  //
-  const registerHandler = async (values) => {
-    try {
-      const res = await userRegistration(values);
-      const data = await res.json();
-      if (res.status === 400) {
-        setError(data.message);
-        return;
-      }
-      navigate("/conformation", { replace: true, state: { email: values.email } });
-      console.log(data);
-    } catch (error) {
-      setError(error);
-    }
+  const registerHandler = (values) => {
+    sendRequest(values, userRegistration, mode);
   };
 
   let content = (
-    <Container>
-      <Row className="justify-content-center">
-        {mode && mode === "login" && (
-          <Col xs={8} sm={8} md={6} lg={4} xl={3}>
-            <LoginForm title="Login" errorMsg={error} onLogin={loginHandler} />
-          </Col>
-        )}
-        {mode && mode === "register" && (
-          <Col xs={8} sm={8} md={6} lg={4} xl={4}>
-            <RegisterForm title="Create account" errorMsg={error} onRegister={registerHandler} />
-          </Col>
-        )}
-      </Row>
-    </Container>
+    <div className="loginbox">
+      {mode && mode === "login" && (
+        <>
+          <LoginForm title="Login" errorMsg={error} onLogin={loginHandler} />
+        </>
+      )}
+      {mode && mode === "register" && <RegisterForm title="Create account" errorMsg={error} onRegister={registerHandler} />}
+    </div>
   );
 
   if (auhtCtx.isLogedIn) {
     content = <Navigate to="/dashboard" replace={true} />;
   }
 
-  return <>{content}</>;
+  return (
+    <>
+      {content}
+      {isLoading && <Loader />}
+    </>
+  );
 };
 
 export default LoginRegister;

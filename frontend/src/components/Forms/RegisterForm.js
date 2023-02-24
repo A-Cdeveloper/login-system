@@ -1,57 +1,52 @@
 import React from "react";
 import classes from "./Form.module.scss";
-import { Formik, Form } from "formik";
 import { Link } from "react-router-dom";
-import * as Yup from "yup";
 
 import Card from "../ui/Card";
+import FormTemplate from "./FormTemplate";
 
-import { Button } from "reactstrap";
-import { TextInput } from "./FormElements";
-
-const validationSchema = Yup.object({
-  firstname: Yup.string().trim().required("This filed is required"),
-  lastname: Yup.string().trim().required("This filed is required"),
-  email: Yup.string().trim().email("E-Mail must be valid").required("This filed is required"),
-  username: Yup.string().trim().required("This filed is required"),
-  password: Yup.string().trim().required("This filed is required").min(10, "Password must be at least 10 characters").max(15, "Password must be max 15 characters"),
-});
+const fields = [
+  {
+    name: "username",
+    label: "Username",
+    type: "text",
+    required: true,
+  },
+  {
+    name: "password",
+    label: "Password",
+    type: "password",
+    required: true,
+  },
+  {
+    name: "firstname",
+    label: "First Name",
+    type: "text",
+    required: true,
+  },
+  {
+    name: "lastname",
+    label: "Last Name",
+    type: "text",
+    required: true,
+  },
+  {
+    name: "email",
+    label: "E-Mail",
+    type: "email",
+    required: true,
+  },
+];
 
 const RegisterForm = ({ title, errorMsg, onRegister }) => {
   return (
     <Card>
       <h2 className="text-center mb-4">{title}</h2>
 
-      <Formik
-        initialValues={{
-          firstname: "",
-          lastname: "",
-          email: "",
-          username: "",
-          password: "",
-        }}
-        isInitialValid={false}
-        validationSchema={validationSchema}
-        onSubmit={(values) => {
-          onRegister(values);
-        }}
-      >
-        {({ isValid }) => (
-          <Form>
-            <TextInput type="text" label="First name" name="firstname" id="firstname" />
-            <TextInput type="text" label="Last name" name="lastname" id="lastname" />
-            <TextInput type="email" label="E-Mail" name="email" id="email" />
-            <TextInput type="text" label="Username" name="username" id="username" />
-            <TextInput type="password" label="Password" name="password" id="password" />
-            <Button type="submit" color="success" size="lg" disabled={!isValid}>
-              SUBMIT
-            </Button>
-          </Form>
-        )}
-      </Formik>
+      <FormTemplate onSubmit={onRegister} fields={fields} />
 
       <p className={classes.account}>
-        <Link to="/userarea/?mode=login">Login to your account.</Link>
+        <Link to="/?mode=login">Login to your account.</Link>
       </p>
       {errorMsg && <p className={classes.error}>{errorMsg}</p>}
     </Card>

@@ -29,7 +29,7 @@ const RootLayout = () => {
     <Container fluid>
       {showAlert && ctxAuth.isLogedIn && <AlertBox type="successLogin">You are now loged in.</AlertBox>}
       {showAlert && !ctxAuth.isLogedIn && <AlertBox type="successLogout">You are now loged out.</AlertBox>}
-      <Header />
+      {ctxAuth.isLogedIn && <Header />}
       <Container tag="main">
         <Outlet />
       </Container>

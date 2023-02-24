@@ -18,8 +18,15 @@ const router = createBrowserRouter([
     element: <RootLayout />,
     errorElement: <ErrorPage />,
     children: [
-      { index: true, path: "userarea", element: <LoginRegister /> },
-      { path: "dashboard", element: <HomePage /> },
+      { index: true, path: "/", element: <LoginRegister /> },
+      {
+        path: "/dashboard",
+        element: (
+          <ProtectedRoute redirectTo="/login">
+            <HomePage />
+          </ProtectedRoute>
+        ),
+      },
       {
         path: "clients",
         element: (
