@@ -25,7 +25,7 @@ const useLoginReg = () => {
         navigate("/conformation", { replace: true, state: { email: values.email } });
       }
     } catch (error) {
-      setError(error);
+      setError(error.message);
     }
     setIsLoading(false);
   };

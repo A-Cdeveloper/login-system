@@ -38,4 +38,24 @@ Content-Type: application/json
 
 ### 
 GET  http://192.168.0.149:8080/users/user-verify/12/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InBlcmEiLCJpYXQiOjE2NzcxMDYwMTEsI88mV4cCI6MTY3NzEwOTYxMX0.B5sAL71IGKABaNncK9SCJcBgshtOkFA4Lk5zhAIGyts
- 
+
+
+###
+GET http://192.168.0.149:8080/clients/
+
+###
+GET http://192.168.0.149:8080/clients/5
+
+###
+PUT http://192.168.0.149:8080/clients/33/edit
+Content-Type: application/json
+
+{
+     "client_name": "Test client Aleksandar",
+     "client_adresse": "strasse 89",
+     "client_contact": "78945",
+     "client_email": "alek@e-sem.com",
+     "client_site": "www.client.com"
+}
+###
+DELETE  http://192.168.0.149:8080/clients/33/delete

@@ -3,11 +3,10 @@ const bcrypt = require("bcrypt");
 const dotenv = require("dotenv");
 dotenv.config();
 const jwt = require("jsonwebtoken");
-const router = express.Router();
-
-const dbfunctions = require("../utils/database");
+const dbfunctions = require("../utils/users-query");
 const sendMail = require("../utils/sendemail");
 
+const router = express.Router();
 // /users
 
 router.get("/", async (req, res, next) => {

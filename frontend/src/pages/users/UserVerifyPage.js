@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 
-import { userConformation } from "../../util/http";
+import { userConformation } from "../../utils/http-users";
 
 const UserVerifyPage = () => {
   const params = useParams();

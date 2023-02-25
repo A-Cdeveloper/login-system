@@ -15,8 +15,11 @@ app.use((req, res, next) => {
 
 // Routes
 const usersRoute = require("./routes/users");
+const clientsRoute = require("./routes/clients");
 app.use("/users", usersRoute);
+app.use("/clients", clientsRoute);
 
+//
 // error handler
 app.use((req, res, next) => {
   const error = new Error("Nije pronađeno.");

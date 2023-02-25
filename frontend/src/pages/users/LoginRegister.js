@@ -5,7 +5,7 @@ import RegisterForm from "../../components/Forms/RegisterForm";
 import Loader from "../../components/ui/Loader";
 
 import useLoginReg from "../../hooks/loginreg";
-import { userLogin, userRegistration } from "../../util/http";
+import { userLogin, userRegistration } from "../../utils/http-users";
 
 const LoginRegister = () => {
   const { sendRequest, isLoading, error, auhtCtx } = useLoginReg();
@@ -21,6 +21,8 @@ const LoginRegister = () => {
   // }, [searchParams]);
 
   //
+
+  console.log(error);
 
   const loginHandler = (values) => {
     sendRequest(values, userLogin, mode);

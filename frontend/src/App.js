@@ -8,6 +8,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import HomePage from "./pages/HomePage";
 import Projects from "./pages/Projects";
 import Clients from "./pages/Clients";
+import Tasks from "./pages/Tasks";
 import LoginRegister from "./pages/users/LoginRegister";
 import ConformationPage from "./pages/users/ConformationPage";
 import UserVerifyPage from "./pages/users/UserVerifyPage";
@@ -40,6 +41,15 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute redirectTo="/login">
             <Projects />
+          </ProtectedRoute>
+        ),
+      },
+
+      {
+        path: "tasks",
+        element: (
+          <ProtectedRoute redirectTo="/login">
+            <Tasks />
           </ProtectedRoute>
         ),
       },

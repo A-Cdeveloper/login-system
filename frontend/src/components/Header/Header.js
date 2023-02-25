@@ -3,7 +3,7 @@ import { NavLink as RootLink, Link } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../store/authContext";
 
-import { userManageCredential } from "../../util/http";
+import { userManageCredential } from "../../utils/http-users";
 
 import logo from "../../assets/logo.png";
 
@@ -23,16 +23,19 @@ const Header = () => {
                 Dashboard
               </NavLink>
             </NavItem>
-
             <NavItem>
               <NavLink tag={RootLink} to={"projects"}>
                 Projects
               </NavLink>
             </NavItem>
-
             <NavItem>
               <NavLink tag={RootLink} to={"clients"}>
                 Clients
+              </NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink tag={RootLink} to={"tasks"}>
+                Tasks
               </NavLink>
             </NavItem>
           </Nav>
