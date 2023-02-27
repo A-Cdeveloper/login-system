@@ -1,15 +1,29 @@
-import React from "react";
+//import { useState } from "react";
+import { useGetClientsQuery } from "../store/redux/clientApi";
+import { columns } from "../components/Clients/Tablecolumns";
+import { useListItems } from "../hooks/listItems";
 
-import { useClientsQuery } from "../store/redux/clientApi";
+// import AddClient from "../components/Clients/AddClient";
+// import EditClient from "../components/Clients/EditClient";
+
+import TableActions from "../components/Clients/TableActions";
+
+import { Button } from "reactstrap";
 
 const Clients = () => {
-  const { data, error, isLoading, isSuccess } = useClientsQuery();
+  const { content, record_id } = useListItems(useGetClientsQuery, columns, "No clients found!");
 
-  console.log(data);
+  console.log(record_id);
   return (
     <>
       <h1>Clients</h1>
-      <p>t is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>
+      <Button color="primary" onClick={() => {}}>
+        Add client
+      </Button>
+
+      {record_id && <TableActions id={record_id} />}
+
+      {content}
     </>
   );
 };

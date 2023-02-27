@@ -96,12 +96,12 @@ const AuthContextProvider = ({ children }) => {
       timer = setTimeout(async () => {
         const res = await userManageCredential(refToken, "refresh_token");
         const data = await res.json();
-        //console.log(data);
+        console.log(data);
         setToken(data.accessToken);
         setRefToken(data.refreshToken);
         localStorage.setItem("token", data.accessToken);
         localStorage.setItem("expirationTime", data.expiresIn);
-      }, 1000 * 60 * 59);
+      }, 1000 * 60 * 30);
     }
     return () => clearTimeout(timer);
   }, [refToken, tokenData]);

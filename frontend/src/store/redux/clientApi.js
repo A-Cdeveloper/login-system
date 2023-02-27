@@ -9,11 +9,18 @@ export const clientApi = createApi({
   }),
   tagTypes: ["Client"],
   endpoints: (builder) => ({
-    clients: builder.query({
+    getClients: builder.query({
       query: () => "/clients",
       providesTags: ["Client"],
+    }),
+    deleteClient: builder.mutation({
+      query: (id) => ({
+        url: `/clients/${id}/delete`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Client"],
     }),
   }),
 });
 
-export const { useClientsQuery } = clientApi;
+export const { useGetClientsQuery, useDeleteClientMutation } = clientApi;

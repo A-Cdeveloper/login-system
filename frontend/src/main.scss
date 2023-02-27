@@ -11,6 +11,7 @@ html {
 
 body {
   margin: 0;
+  overflow: hidden;
 }
 
 h1 {
@@ -40,7 +41,7 @@ p.userarea {
 
 main {
   font-size: 1.6rem;
-  padding: 20px 0px;
+  padding: 0px;
   position: relative;
   height: 100vh;
 
@@ -57,5 +58,26 @@ main {
 footer {
   font-size: 1.3rem;
   padding: 0.5rem !important;
-  color: white;
+}
+
+//////////////////////////
+///
+///
+
+.rdt_TableHeadRow {
+  min-height: auto;
+  padding: 10px;
+  font-weight: bold;
+  font-size: 1.4rem !important;
+  & .rdt_TableCol {
+  }
+}
+
+.rdt_TableCell {
+  font-size: 1.4rem !important;
+}
+
+.rdt_TableCell div:first-child {
+  white-space: inherit !important;
+  padding: 5px;
 }

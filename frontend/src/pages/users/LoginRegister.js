@@ -22,7 +22,7 @@ const LoginRegister = () => {
 
   //
 
-  console.log(error);
+  //console.log(error);
 
   const loginHandler = (values) => {
     sendRequest(values, userLogin, mode);

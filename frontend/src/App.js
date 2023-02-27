@@ -23,7 +23,7 @@ const router = createBrowserRouter([
       {
         path: "/dashboard",
         element: (
-          <ProtectedRoute redirectTo="/login">
+          <ProtectedRoute redirectTo="/">
             <HomePage />
           </ProtectedRoute>
         ),
@@ -31,7 +31,7 @@ const router = createBrowserRouter([
       {
         path: "clients",
         element: (
-          <ProtectedRoute redirectTo="/login">
+          <ProtectedRoute redirectTo="/">
             <Clients />
           </ProtectedRoute>
         ),

@@ -9,6 +9,9 @@ router.get("/", async (req, res) => {
   if (clients.lenght == 0) {
     return res.status(400).json({ message: "Clients list is empty." });
   }
+  // setTimeout(() => {
+  //   return res.status(231).send(clients);
+  // }, 6000);
   return res.status(231).send(clients);
 });
 
